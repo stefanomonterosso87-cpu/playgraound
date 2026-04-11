@@ -3,21 +3,34 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>GUIDE — Understand & Acknowledge (Chat) · Practice Game</title>
+  <title>GetYourGuide · GUIDE — Understand &amp; Acknowledge (Chat)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
   <style>
+    /* Inspired by GetYourGuide public palette: Big Stone + Outrageous Orange */
     :root {
-      --bg: #0f1419;
-      --panel: #1a222c;
-      --text: #e8eef4;
-      --muted: #8b9aab;
-      --accent: #00c896;
-      --accent-dim: #009e78;
-      --danger: #ff6b6b;
-      --warn: #ffc857;
-      --chat-in: #243040;
-      --chat-out: #1e3d35;
-      --radius: 12px;
-      --font: system-ui, "Segoe UI", Roboto, sans-serif;
+      --ggy-navy: #1a2b49;
+      --ggy-navy-mid: #243656;
+      --ggy-orange: #ff5533;
+      --ggy-orange-hover: #e64a2e;
+      --ggy-orange-soft: rgba(255, 85, 51, 0.12);
+      --bg-page: #eef1f6;
+      --bg-card: #ffffff;
+      --text: #1a2b49;
+      --muted: #5a6a85;
+      --border: rgba(26, 43, 73, 0.1);
+      --chat-in: #e8eef5;
+      --chat-in-border: rgba(26, 43, 73, 0.08);
+      --chat-out: #f0faf6;
+      --chat-out-border: rgba(46, 160, 110, 0.35);
+      --success: #1c9d6a;
+      --danger: #e03d3d;
+      --radius: 14px;
+      --radius-sm: 10px;
+      --shadow: 0 4px 24px rgba(26, 43, 73, 0.08), 0 1px 3px rgba(26, 43, 73, 0.06);
+      --shadow-lg: 0 16px 48px rgba(26, 43, 73, 0.12);
+      --font: "Plus Jakarta Sans", system-ui, "Segoe UI", Roboto, sans-serif;
     }
 
     * {
@@ -28,22 +41,100 @@
       margin: 0;
       min-height: 100vh;
       font-family: var(--font);
-      background: radial-gradient(ellipse 120% 80% at 50% -20%, #1a3d34 0%, var(--bg) 55%);
+      background:
+        radial-gradient(ellipse 100% 80% at 50% -30%, rgba(255, 85, 51, 0.09) 0%, transparent 55%),
+        linear-gradient(180deg, #e4e9f2 0%, var(--bg-page) 40%, #f7f8fb 100%);
       color: var(--text);
-      line-height: 1.5;
+      line-height: 1.55;
+    }
+
+    .top-bar {
+      background: linear-gradient(135deg, var(--ggy-navy) 0%, var(--ggy-navy-mid) 100%);
+      color: #fff;
+      padding: 0.85rem 1rem;
+      box-shadow: 0 2px 12px rgba(26, 43, 73, 0.2);
+    }
+
+    .top-bar-inner {
+      max-width: 640px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .brand-mark {
+      width: 2.25rem;
+      height: 2.25rem;
+      border-radius: 10px;
+      background: var(--ggy-orange);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.72rem;
+      letter-spacing: 0.02em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+      gap: 0.1rem;
+    }
+
+    .brand-text strong {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-text span {
+      font-size: 0.7rem;
+      opacity: 0.85;
+      font-weight: 500;
+    }
+
+    .top-pill {
+      font-size: 0.68rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      color: var(--ggy-orange);
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      padding: 0.35rem 0.65rem;
+      border-radius: 999px;
     }
 
     .wrap {
       max-width: 640px;
       margin: 0 auto;
-      padding: 1.25rem 1rem 3rem;
+      padding: 1.35rem 1rem 2.5rem;
+    }
+
+    header {
+      margin-bottom: 0.25rem;
     }
 
     header h1 {
-      font-size: 1.35rem;
-      font-weight: 700;
-      margin: 0 0 0.35rem;
-      letter-spacing: -0.02em;
+      font-size: 1.45rem;
+      font-weight: 800;
+      margin: 0 0 0.4rem;
+      letter-spacing: -0.03em;
+      color: var(--text);
     }
 
     header p {
@@ -54,24 +145,25 @@
 
     .badge {
       display: inline-block;
-      font-size: 0.7rem;
-      font-weight: 600;
+      font-size: 0.68rem;
+      font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.06em;
-      color: var(--accent);
-      border: 1px solid var(--accent-dim);
-      padding: 0.2rem 0.5rem;
+      color: var(--ggy-orange);
+      background: var(--ggy-orange-soft);
+      border: 1px solid rgba(255, 85, 51, 0.25);
+      padding: 0.28rem 0.55rem;
       border-radius: 999px;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.65rem;
     }
 
     .panel {
-      background: var(--panel);
+      background: var(--bg-card);
       border-radius: var(--radius);
-      padding: 1.25rem;
-      margin-top: 1.25rem;
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+      padding: 1.35rem;
+      margin-top: 1.15rem;
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
     }
 
     .progress {
@@ -79,21 +171,22 @@
       align-items: center;
       gap: 0.75rem;
       margin-bottom: 1rem;
-      font-size: 0.85rem;
+      font-size: 0.82rem;
       color: var(--muted);
+      font-weight: 600;
     }
 
     .progress-bar {
       flex: 1;
-      height: 6px;
-      background: var(--chat-in);
+      height: 8px;
+      background: rgba(26, 43, 73, 0.08);
       border-radius: 999px;
       overflow: hidden;
     }
 
     .progress-fill {
       height: 100%;
-      background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+      background: linear-gradient(90deg, var(--ggy-orange-hover), var(--ggy-orange));
       border-radius: 999px;
       transition: width 0.35s ease;
     }
@@ -101,136 +194,153 @@
     .customer {
       background: var(--chat-in);
       padding: 1rem 1.1rem;
-      border-radius: var(--radius);
+      border-radius: var(--radius-sm);
       border-bottom-left-radius: 4px;
-      margin-bottom: 1.25rem;
-      font-size: 0.95rem;
+      margin-bottom: 1.15rem;
+      font-size: 0.93rem;
+      border: 1px solid var(--chat-in-border);
     }
 
     .customer .label {
-      font-size: 0.7rem;
+      font-size: 0.68rem;
       text-transform: uppercase;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.06em;
       color: var(--muted);
       margin-bottom: 0.35rem;
+      font-weight: 700;
     }
 
     .options {
       display: flex;
       flex-direction: column;
-      gap: 0.65rem;
+      gap: 0.6rem;
     }
 
     .option {
       text-align: left;
       width: 100%;
-      padding: 0.9rem 1rem;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      background: rgba(0, 0, 0, 0.2);
+      padding: 0.92rem 1rem;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: #fafbfd;
       color: var(--text);
       font-family: inherit;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       cursor: pointer;
-      transition: border-color 0.2s, background 0.2s;
+      transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
       line-height: 1.45;
     }
 
     .option:hover:not(:disabled) {
-      border-color: var(--accent-dim);
-      background: rgba(0, 200, 150, 0.08);
+      border-color: rgba(255, 85, 51, 0.45);
+      background: #fff;
+      box-shadow: 0 2px 12px rgba(255, 85, 51, 0.08);
     }
 
     .option:disabled {
       cursor: default;
-      opacity: 0.85;
+      opacity: 1;
     }
 
     .option.correct {
-      border-color: var(--accent);
-      background: rgba(0, 200, 150, 0.15);
+      border-color: var(--success);
+      background: rgba(28, 157, 106, 0.08);
+      box-shadow: 0 0 0 1px rgba(28, 157, 106, 0.2);
     }
 
     .option.wrong {
       border-color: var(--danger);
-      background: rgba(255, 107, 107, 0.1);
+      background: rgba(224, 61, 61, 0.06);
     }
 
     .feedback {
       margin-top: 1rem;
-      padding: 1rem;
-      border-radius: var(--radius);
+      padding: 1rem 1.05rem;
+      border-radius: var(--radius-sm);
       background: var(--chat-out);
-      border: 1px solid rgba(0, 200, 150, 0.25);
-      font-size: 0.9rem;
+      border: 1px solid var(--chat-out-border);
+      font-size: 0.88rem;
     }
 
     .feedback h3 {
-      margin: 0 0 0.5rem;
+      margin: 0 0 0.45rem;
       font-size: 0.95rem;
-      color: var(--accent);
+      color: var(--success);
+      font-weight: 800;
     }
 
     .feedback ul {
-      margin: 0.5rem 0 0;
-      padding-left: 1.2rem;
+      margin: 0.45rem 0 0;
+      padding-left: 1.15rem;
       color: var(--muted);
     }
 
     .feedback li {
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.28rem;
     }
 
     .actions {
-      margin-top: 1.25rem;
+      margin-top: 1.2rem;
       display: flex;
-      gap: 0.65rem;
+      gap: 0.6rem;
       flex-wrap: wrap;
     }
 
     button.primary {
       font-family: inherit;
-      font-weight: 600;
+      font-weight: 700;
       font-size: 0.9rem;
-      padding: 0.65rem 1.25rem;
+      padding: 0.72rem 1.35rem;
       border: none;
-      border-radius: var(--radius);
-      background: var(--accent);
-      color: #04221a;
+      border-radius: var(--radius-sm);
+      background: var(--ggy-orange);
+      color: #fff;
       cursor: pointer;
+      box-shadow: 0 4px 14px rgba(255, 85, 51, 0.35);
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
     }
 
     button.primary:hover {
-      filter: brightness(1.08);
+      background: var(--ggy-orange-hover);
+      box-shadow: 0 6px 20px rgba(255, 85, 51, 0.4);
+    }
+
+    button.primary:active {
+      transform: scale(0.98);
     }
 
     button.ghost {
       font-family: inherit;
-      font-size: 0.9rem;
+      font-size: 0.88rem;
       padding: 0.65rem 1rem;
-      border-radius: var(--radius);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      background: transparent;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+      background: #fff;
       color: var(--muted);
       cursor: pointer;
     }
 
     .summary {
       text-align: center;
-      padding: 1.5rem 0 0.5rem;
+      padding: 1.25rem 0 0.35rem;
     }
 
     .summary .score {
-      font-size: 2.5rem;
+      font-size: 2.65rem;
       font-weight: 800;
-      color: var(--accent);
-      letter-spacing: -0.03em;
+      color: var(--ggy-orange);
+      letter-spacing: -0.04em;
     }
 
     .rubric-mini {
       margin-top: 1rem;
-      font-size: 0.85rem;
+      font-size: 0.84rem;
       color: var(--muted);
+      text-align: left;
+      padding: 1rem;
+      background: rgba(26, 43, 73, 0.04);
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
     }
 
     .rubric-mini strong {
@@ -238,10 +348,18 @@
     }
 
     footer {
-      margin-top: 2rem;
-      font-size: 0.75rem;
+      margin-top: 1.75rem;
+      font-size: 0.72rem;
       color: var(--muted);
       text-align: center;
+      line-height: 1.5;
+    }
+
+    footer a {
+      color: var(--ggy-navy);
+      font-weight: 600;
+      text-decoration: underline;
+      text-underline-offset: 2px;
     }
 
     .hidden {
@@ -250,13 +368,26 @@
   </style>
 </head>
 <body>
+  <div class="top-bar">
+    <div class="top-bar-inner">
+      <a class="brand" href="https://www.getyourguide.com/" target="_blank" rel="noopener noreferrer">
+        <span class="brand-mark" aria-hidden="true">GYG</span>
+        <div class="brand-text">
+          <strong>GetYourGuide</strong>
+          <span>Book experiences · Tickets · Tours</span>
+        </div>
+      </a>
+      <span class="top-pill">GUIDE · Chat trainer</span>
+    </div>
+  </div>
+
   <div class="wrap">
     <header>
-      <span class="badge">Training practice · Chat support</span>
+      <span class="badge">Supplier care · Digital support</span>
       <h1>Understand &amp; Acknowledge</h1>
       <p>
-        Travel &amp; experiences context. Pick the reply that best completes the
-        <strong>U</strong> step before you investigate or solve.
+        Travelers message us about bookings on GetYourGuide. Pick the reply that nails the
+        <strong>U</strong> step — before you investigate, loop in the supplier, or quote policy.
       </p>
     </header>
 
@@ -268,11 +399,11 @@
         </div>
       </div>
       <div class="customer">
-        <div class="label">Customer (chat)</div>
+        <div class="label">Traveler (chat)</div>
         <div id="customer-text"></div>
       </div>
-      <p style="margin: 0 0 0.75rem; font-size: 0.85rem; color: var(--muted);">
-        Which agent reply best shows <strong>Understand &amp; Acknowledge</strong>?
+      <p style="margin: 0 0 0.75rem; font-size: 0.84rem; color: var(--muted);">
+        Which reply best shows <strong>Understand &amp; Acknowledge</strong> in a GetYourGuide chat?
       </p>
       <div id="options" class="options"></div>
       <div id="feedback" class="feedback hidden"></div>
@@ -283,13 +414,13 @@
 
     <div id="screen-done" class="panel hidden">
       <div class="summary">
-        <p style="margin: 0; color: var(--muted);">Your score</p>
+        <p style="margin: 0; color: var(--muted); font-weight: 600;">Your score</p>
         <div id="final-score" class="score">0/5</div>
         <p id="final-msg" style="margin: 0.75rem 0 0; color: var(--text);"></p>
       </div>
       <div class="rubric-mini">
-        <strong>U in chat</strong> — show you’re listening, paraphrase the issue, acknowledge feelings,
-        ask a clarifying question or two, thank them — <em>before</em> jumping to fixes or policy.
+        <strong>U on GYG chat</strong> — show you’ve read them, paraphrase the issue, acknowledge how it feels,
+        ask one or two clarifiers (booking ref, voucher, timing), thank them — <em>before</em> fixes or policy dumps.
       </div>
       <div class="actions" style="justify-content: center;">
         <button type="button" id="btn-replay" class="primary">Play again</button>
@@ -297,7 +428,9 @@
     </div>
 
     <footer>
-      Demo asset for a training presentation · Not affiliated with any employer
+      Unofficial training demo for learning the GUIDE method — not affiliated with or endorsed by GetYourGuide.<br />
+      Brand colours inspired by public palette ·
+      <a href="https://www.getyourguide.com/" target="_blank" rel="noopener noreferrer">getyourguide.com</a>
     </footer>
   </div>
 
@@ -308,28 +441,28 @@
           "We’re at the meeting point for our food tour and nobody is here. Booking GYG-88421. This is unacceptable.",
         options: [
           {
-            text: "Hi, thanks for your booking reference — I’m looking into this now. What I’m hearing is you’re at the meeting point and the guide hasn’t arrived yet, is that right? I’m sorry — that’s stressful when you’re on a schedule. Can you confirm the meeting point name on your voucher and whether you’re more than 15 minutes past the start time?",
+            text: "Hi — thanks for sending GYG-88421, I’m pulling it up now. What I’m hearing is you’re at the meeting point and the guide hasn’t arrived yet, is that right? I’m sorry — that’s stressful when you’re on a schedule. Can you confirm the meeting point name on your GetYourGuide voucher and whether you’re more than 15 minutes past the start time?",
             correct: true,
             why: [
-              "Paraphrases the situation and checks understanding.",
-              "Names the feeling (stress) and apologizes appropriately.",
-              "Asks focused clarifiers before investigating or promising outcomes.",
+              "Uses the booking reference and shows you’re on it.",
+              "Paraphrases and names the feeling before investigating.",
+              "Asks GYG-specific clarifiers (voucher, timing) before promising outcomes.",
             ],
           },
           {
-            text: "I’ve processed a full refund. You should see it in 5–10 business days.",
+            text: "I’ve processed a full refund in our system. You should see it in 5–10 business days.",
             correct: false,
             why: [
-              "Skips Understand & Acknowledge — no listening, empathy, or clarifiers.",
-              "Risky: you may refund when rescheduling or supplier contact was possible.",
+              "Skips U — no listening, empathy, or clarifiers.",
+              "Risky: refunds before supplier checks can break trust and policy.",
             ],
           },
           {
-            text: "Don’t worry, tours always run. Please wait longer.",
+            text: "Don’t worry, experiences on GetYourGuide always run. Please wait longer.",
             correct: false,
             why: [
-              "Dismissive — doesn’t acknowledge their experience.",
-              "No paraphrase and no clarifying questions.",
+              "Dismissive — doesn’t acknowledge their reality.",
+              "Sounds generic; no paraphrase or clarifying questions.",
             ],
           },
         ],
@@ -339,27 +472,27 @@
           "You cancelled our boat trip yesterday with no warning. We flew here for this. I want my money back today.",
         options: [
           {
-            text: "Policy says refunds take 7 days.",
+            text: "Our refund policy says payouts take 7 days.",
             correct: false,
             why: [
-              "Leads with policy — feels cold after a high-emotion message.",
-              "No paraphrase, empathy, or clarifying questions.",
+              "Policy-first after high emotion — feels cold.",
+              "No paraphrase, empathy, or clarifiers.",
             ],
           },
           {
-            text: "Thanks for explaining what happened — that sounds really disappointing, especially after travelling for this. If I’m understanding correctly, your experience was cancelled on short notice and you’d like resolution today. Can you share your booking reference and the email address on the booking so I can pull up the details?",
+            text: "Thanks for explaining — that sounds really disappointing, especially after travelling for this. If I’m understanding correctly, the experience was cancelled on short notice and you’d like resolution today. Can you share your GYG booking reference and the email on the booking so I can open the case?",
             correct: true,
             why: [
               "Validates emotion and summarizes the concern.",
-              "Checks understanding before moving to Investigate & Inform.",
-              "Asks practical clarifiers needed for the next step.",
+              "Checks understanding before Investigate & Inform.",
+              "Asks what you need to help on-platform.",
             ],
           },
           {
-            text: "I’m sorry this happened. As a one-time exception I can refund you now.",
+            text: "I’m sorry. As a one-time exception I’ll refund you immediately.",
             correct: false,
             why: [
-              "Shows empathy but jumps to a solution without investigation.",
+              "Empathy then jumps to resolution without investigation.",
               "“Exception” language can create inconsistent service.",
             ],
           },
@@ -367,30 +500,30 @@
       },
       {
         customer:
-          "The QR code on our museum ticket won’t scan at the entrance. We’re standing in the rain. Fix this now.",
+          "The QR from your app won’t scan at the museum entrance. We’re standing in the rain. Fix this now.",
         options: [
           {
-            text: "Try zooming in on the QR code or increasing brightness.",
+            text: "Try zooming in on the QR or turn your screen brightness up.",
             correct: false,
             why: [
-              "Immediate troubleshooting without acknowledging the situation.",
-              "Misses empathy for stress and bad conditions.",
+              "Troubleshooting before acknowledging the situation.",
+              "Misses empathy for weather and stress.",
             ],
           },
           {
-            text: "That sounds frustrating — especially waiting outside. I want to help quickly. Can you tell me if this is a PDF in our app, Apple Wallet, or an email attachment? Also, does the venue see any error message on their scanner?",
+            text: "That sounds frustrating — especially outside in the rain. I want to help quickly. Is your ticket in the GetYourGuide app, a PDF, Apple Wallet, or email? And does the venue’s scanner show any error?",
             correct: true,
             why: [
               "Acknowledges feelings and urgency.",
-              "Asks targeted questions to diagnose before giving steps.",
+              "Asks targeted questions before steps — very GYG-relevant.",
             ],
           },
           {
-            text: "Please contact the museum directly — we don’t control their scanners.",
+            text: "Please contact the museum — we don’t control their scanners.",
             correct: false,
             why: [
-              "Deflects before owning the customer’s experience on the platform.",
-              "No real “U” — customer may feel abandoned.",
+              "Deflects before owning the traveler’s journey.",
+              "Weak U — can feel like abandoning the customer.",
             ],
           },
         ],
@@ -400,26 +533,26 @@
           "I booked the wrong date — the experience is tomorrow but we’re only here today. Can you change it?",
         options: [
           {
-            text: "What I’m hearing is you need the same experience but on today’s date if possible, is that right? I know plans change when you’re travelling. Please send your booking reference and the date/time you’re hoping for, and I’ll check what change options exist with the supplier.",
+            text: "What I’m hearing is you need the same activity today if possible — is that right? I know plans shift when you travel. Please send your booking reference and the date or time you’re hoping for, and I’ll check change options with the supplier on GetYourGuide.",
             correct: true,
             why: [
-              "Clear paraphrase to avoid fixing the wrong problem.",
-              "Empathy without promising an outcome you haven’t verified.",
+              "Paraphrase avoids fixing the wrong problem.",
+              "Empathy without promising what you haven’t verified.",
             ],
           },
           {
-            text: "Date changes aren’t allowed. You agreed to the terms.",
+            text: "Date changes aren’t allowed. You accepted the terms at checkout.",
             correct: false,
             why: [
-              "Policy-first tone — erodes trust before you’ve understood constraints.",
-              "No clarifiers; supplier flexibility may exist in some cases.",
+              "Policy wall — erodes trust before you’ve understood.",
+              "No clarifiers; suppliers sometimes allow exceptions.",
             ],
           },
           {
-            text: "No problem, I’ve moved you to today.",
+            text: "Done — I moved your booking to today.",
             correct: false,
             why: [
-              "Assumes a change without checking availability or supplier rules.",
+              "Assumes change without availability or supplier rules.",
               "Skips structured acknowledge + clarify.",
             ],
           },
@@ -430,27 +563,27 @@
           "The guide was rude and rushed us. I want compensation. This ruined our anniversary.",
         options: [
           {
-            text: "I’m initiating compensation now.",
+            text: "I’m starting a goodwill payment now.",
             correct: false,
             why: [
-              "Promises an outcome before facts and policy review.",
-              "Light on listening and clarifying details.",
+              "Promises outcome before facts and review.",
+              "Thin on listening and specifics.",
             ],
           },
           {
-            text: "I’m really sorry you had that experience — especially on a special trip. Thank you for telling us. To make sure I capture this accurately, can you share your booking reference and one or two specific moments that felt rushed or rude?",
+            text: "I’m really sorry you had that experience — especially on a special trip. Thank you for telling us. To document this properly for our supplier team, can you share your booking reference and one or two moments that felt rushed or rude?",
             correct: true,
             why: [
               "Empathy + thanks + validation.",
-              "Asks for specifics you’ll need for investigation and fair resolution.",
+              "Asks for specifics you’ll need for a fair next step on GYG.",
             ],
           },
           {
-            text: "All guides are independent suppliers; we can’t help with attitude.",
+            text: "Guides are independent suppliers; we don’t handle attitude issues.",
             correct: false,
             why: [
               "Sounds like blame-shifting in a sensitive moment.",
-              "Doesn’t demonstrate Understand & Acknowledge.",
+              "Doesn’t show Understand & Acknowledge.",
             ],
           },
         ],
@@ -520,15 +653,17 @@
 
       const correctOne = allOptions.find((x) => x.correct);
       const lines = option.correct
-        ? ["Nice — that’s a strong U block before you investigate."]
-        : ["Not quite — here’s what a stronger U looks like on this scenario."];
+        ? ["Nice — that’s a strong U block before you investigate or loop the supplier."]
+        : ["Not quite — here’s what stronger U looks like on this GYG-style scenario."];
       const listItems = (option.correct ? option.why : correctOne.why)
         .map((t) => `<li>${escapeHtml(t)}</li>`)
         .join("");
 
+      const h3 = option.correct ? "Correct" : "Learning moment";
+      const h3Color = option.correct ? "var(--success)" : "var(--ggy-orange)";
       elFeedback.innerHTML = `
-        <h3>${option.correct ? "Correct" : "Learning moment"}</h3>
-        <p style="margin:0 0 0.5rem;">${escapeHtml(lines[0])}</p>
+        <h3 style="margin:0 0 0.45rem; color: ${h3Color};">${escapeHtml(h3)}</h3>
+        <p style="margin:0 0 0.5rem; color: var(--muted);">${escapeHtml(lines[0])}</p>
         <ul>${listItems}</ul>
       `;
       elFeedback.classList.remove("hidden");
@@ -549,13 +684,13 @@
         elFinalScore.textContent = `${score}/${scenarios.length}`;
         if (score === scenarios.length) {
           elFinalMsg.textContent =
-            "Strong eye for empathy + structure — keep applying this before every fix.";
+            "Strong — that’s the empathy + structure travelers expect on GetYourGuide chat.";
         } else if (score >= 3) {
           elFinalMsg.textContent =
-            "Solid — review the “learning moments” to tighten paraphrase and clarifiers.";
+            "Solid — replay the learning moments to tighten paraphrase and GYG-specific clarifiers.";
         } else {
           elFinalMsg.textContent =
-            "Replay a few times — U is the trust layer that makes solutions land.";
+            "Replay a few rounds — U is what makes the next steps (I & E) land.";
         }
         return;
       }
