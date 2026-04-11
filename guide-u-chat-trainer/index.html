@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GUIDE — Understand & Acknowledge (Chat) · Practice Game</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #1a222c;
+      --text: #e8eef4;
+      --muted: #8b9aab;
+      --accent: #00c896;
+      --accent-dim: #009e78;
+      --danger: #ff6b6b;
+      --warn: #ffc857;
+      --chat-in: #243040;
+      --chat-out: #1e3d35;
+      --radius: 12px;
+      --font: system-ui, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      background: radial-gradient(ellipse 120% 80% at 50% -20%, #1a3d34 0%, var(--bg) 55%);
+      color: var(--text);
+      line-height: 1.5;
+    }
+
+    .wrap {
+      max-width: 640px;
+      margin: 0 auto;
+      padding: 1.25rem 1rem 3rem;
+    }
+
+    header h1 {
+      font-size: 1.35rem;
+      font-weight: 700;
+      margin: 0 0 0.35rem;
+      letter-spacing: -0.02em;
+    }
+
+    header p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent);
+      border: 1px solid var(--accent-dim);
+      padding: 0.2rem 0.5rem;
+      border-radius: 999px;
+      margin-bottom: 0.75rem;
+    }
+
+    .panel {
+      background: var(--panel);
+      border-radius: var(--radius);
+      padding: 1.25rem;
+      margin-top: 1.25rem;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.35);
+    }
+
+    .progress {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      background: var(--chat-in);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent-dim), var(--accent));
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    .customer {
+      background: var(--chat-in);
+      padding: 1rem 1.1rem;
+      border-radius: var(--radius);
+      border-bottom-left-radius: 4px;
+      margin-bottom: 1.25rem;
+      font-size: 0.95rem;
+    }
+
+    .customer .label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .option {
+      text-align: left;
+      width: 100%;
+      padding: 0.9rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(0, 0, 0, 0.2);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      line-height: 1.45;
+    }
+
+    .option:hover:not(:disabled) {
+      border-color: var(--accent-dim);
+      background: rgba(0, 200, 150, 0.08);
+    }
+
+    .option:disabled {
+      cursor: default;
+      opacity: 0.85;
+    }
+
+    .option.correct {
+      border-color: var(--accent);
+      background: rgba(0, 200, 150, 0.15);
+    }
+
+    .option.wrong {
+      border-color: var(--danger);
+      background: rgba(255, 107, 107, 0.1);
+    }
+
+    .feedback {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: var(--radius);
+      background: var(--chat-out);
+      border: 1px solid rgba(0, 200, 150, 0.25);
+      font-size: 0.9rem;
+    }
+
+    .feedback h3 {
+      margin: 0 0 0.5rem;
+      font-size: 0.95rem;
+      color: var(--accent);
+    }
+
+    .feedback ul {
+      margin: 0.5rem 0 0;
+      padding-left: 1.2rem;
+      color: var(--muted);
+    }
+
+    .feedback li {
+      margin-bottom: 0.25rem;
+    }
+
+    .actions {
+      margin-top: 1.25rem;
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+    }
+
+    button.primary {
+      font-family: inherit;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.65rem 1.25rem;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--accent);
+      color: #04221a;
+      cursor: pointer;
+    }
+
+    button.primary:hover {
+      filter: brightness(1.08);
+    }
+
+    button.ghost {
+      font-family: inherit;
+      font-size: 0.9rem;
+      padding: 0.65rem 1rem;
+      border-radius: var(--radius);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+    }
+
+    .summary {
+      text-align: center;
+      padding: 1.5rem 0 0.5rem;
+    }
+
+    .summary .score {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+    }
+
+    .rubric-mini {
+      margin-top: 1rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+    }
+
+    .rubric-mini strong {
+      color: var(--text);
+    }
+
+    footer {
+      margin-top: 2rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">Training practice · Chat support</span>
+      <h1>Understand &amp; Acknowledge</h1>
+      <p>
+        Travel &amp; experiences context. Pick the reply that best completes the
+        <strong>U</strong> step before you investigate or solve.
+      </p>
+    </header>
+
+    <div id="screen-quiz" class="panel">
+      <div class="progress">
+        <span id="round-label">Round 1 / 5</span>
+        <div class="progress-bar">
+          <div id="progress-fill" class="progress-fill" style="width: 20%"></div>
+        </div>
+      </div>
+      <div class="customer">
+        <div class="label">Customer (chat)</div>
+        <div id="customer-text"></div>
+      </div>
+      <p style="margin: 0 0 0.75rem; font-size: 0.85rem; color: var(--muted);">
+        Which agent reply best shows <strong>Understand &amp; Acknowledge</strong>?
+      </p>
+      <div id="options" class="options"></div>
+      <div id="feedback" class="feedback hidden"></div>
+      <div class="actions">
+        <button type="button" id="btn-next" class="primary hidden">Next scenario</button>
+      </div>
+    </div>
+
+    <div id="screen-done" class="panel hidden">
+      <div class="summary">
+        <p style="margin: 0; color: var(--muted);">Your score</p>
+        <div id="final-score" class="score">0/5</div>
+        <p id="final-msg" style="margin: 0.75rem 0 0; color: var(--text);"></p>
+      </div>
+      <div class="rubric-mini">
+        <strong>U in chat</strong> — show you’re listening, paraphrase the issue, acknowledge feelings,
+        ask a clarifying question or two, thank them — <em>before</em> jumping to fixes or policy.
+      </div>
+      <div class="actions" style="justify-content: center;">
+        <button type="button" id="btn-replay" class="primary">Play again</button>
+      </div>
+    </div>
+
+    <footer>
+      Demo asset for a training presentation · Not affiliated with any employer
+    </footer>
+  </div>
+
+  <script>
+    const scenarios = [
+      {
+        customer:
+          "We’re at the meeting point for our food tour and nobody is here. Booking GYG-88421. This is unacceptable.",
+        options: [
+          {
+            text: "Hi, thanks for your booking reference — I’m looking into this now. What I’m hearing is you’re at the meeting point and the guide hasn’t arrived yet, is that right? I’m sorry — that’s stressful when you’re on a schedule. Can you confirm the meeting point name on your voucher and whether you’re more than 15 minutes past the start time?",
+            correct: true,
+            why: [
+              "Paraphrases the situation and checks understanding.",
+              "Names the feeling (stress) and apologizes appropriately.",
+              "Asks focused clarifiers before investigating or promising outcomes.",
+            ],
+          },
+          {
+            text: "I’ve processed a full refund. You should see it in 5–10 business days.",
+            correct: false,
+            why: [
+              "Skips Understand & Acknowledge — no listening, empathy, or clarifiers.",
+              "Risky: you may refund when rescheduling or supplier contact was possible.",
+            ],
+          },
+          {
+            text: "Don’t worry, tours always run. Please wait longer.",
+            correct: false,
+            why: [
+              "Dismissive — doesn’t acknowledge their experience.",
+              "No paraphrase and no clarifying questions.",
+            ],
+          },
+        ],
+      },
+      {
+        customer:
+          "You cancelled our boat trip yesterday with no warning. We flew here for this. I want my money back today.",
+        options: [
+          {
+            text: "Policy says refunds take 7 days.",
+            correct: false,
+            why: [
+              "Leads with policy — feels cold after a high-emotion message.",
+              "No paraphrase, empathy, or clarifying questions.",
+            ],
+          },
+          {
+            text: "Thanks for explaining what happened — that sounds really disappointing, especially after travelling for this. If I’m understanding correctly, your experience was cancelled on short notice and you’d like resolution today. Can you share your booking reference and the email address on the booking so I can pull up the details?",
+            correct: true,
+            why: [
+              "Validates emotion and summarizes the concern.",
+              "Checks understanding before moving to Investigate & Inform.",
+              "Asks practical clarifiers needed for the next step.",
+            ],
+          },
+          {
+            text: "I’m sorry this happened. As a one-time exception I can refund you now.",
+            correct: false,
+            why: [
+              "Shows empathy but jumps to a solution without investigation.",
+              "“Exception” language can create inconsistent service.",
+            ],
+          },
+        ],
+      },
+      {
+        customer:
+          "The QR code on our museum ticket won’t scan at the entrance. We’re standing in the rain. Fix this now.",
+        options: [
+          {
+            text: "Try zooming in on the QR code or increasing brightness.",
+            correct: false,
+            why: [
+              "Immediate troubleshooting without acknowledging the situation.",
+              "Misses empathy for stress and bad conditions.",
+            ],
+          },
+          {
+            text: "That sounds frustrating — especially waiting outside. I want to help quickly. Can you tell me if this is a PDF in our app, Apple Wallet, or an email attachment? Also, does the venue see any error message on their scanner?",
+            correct: true,
+            why: [
+              "Acknowledges feelings and urgency.",
+              "Asks targeted questions to diagnose before giving steps.",
+            ],
+          },
+          {
+            text: "Please contact the museum directly — we don’t control their scanners.",
+            correct: false,
+            why: [
+              "Deflects before owning the customer’s experience on the platform.",
+              "No real “U” — customer may feel abandoned.",
+            ],
+          },
+        ],
+      },
+      {
+        customer:
+          "I booked the wrong date — the experience is tomorrow but we’re only here today. Can you change it?",
+        options: [
+          {
+            text: "What I’m hearing is you need the same experience but on today’s date if possible, is that right? I know plans change when you’re travelling. Please send your booking reference and the date/time you’re hoping for, and I’ll check what change options exist with the supplier.",
+            correct: true,
+            why: [
+              "Clear paraphrase to avoid fixing the wrong problem.",
+              "Empathy without promising an outcome you haven’t verified.",
+            ],
+          },
+          {
+            text: "Date changes aren’t allowed. You agreed to the terms.",
+            correct: false,
+            why: [
+              "Policy-first tone — erodes trust before you’ve understood constraints.",
+              "No clarifiers; supplier flexibility may exist in some cases.",
+            ],
+          },
+          {
+            text: "No problem, I’ve moved you to today.",
+            correct: false,
+            why: [
+              "Assumes a change without checking availability or supplier rules.",
+              "Skips structured acknowledge + clarify.",
+            ],
+          },
+        ],
+      },
+      {
+        customer:
+          "The guide was rude and rushed us. I want compensation. This ruined our anniversary.",
+        options: [
+          {
+            text: "I’m initiating compensation now.",
+            correct: false,
+            why: [
+              "Promises an outcome before facts and policy review.",
+              "Light on listening and clarifying details.",
+            ],
+          },
+          {
+            text: "I’m really sorry you had that experience — especially on a special trip. Thank you for telling us. To make sure I capture this accurately, can you share your booking reference and one or two specific moments that felt rushed or rude?",
+            correct: true,
+            why: [
+              "Empathy + thanks + validation.",
+              "Asks for specifics you’ll need for investigation and fair resolution.",
+            ],
+          },
+          {
+            text: "All guides are independent suppliers; we can’t help with attitude.",
+            correct: false,
+            why: [
+              "Sounds like blame-shifting in a sensitive moment.",
+              "Doesn’t demonstrate Understand & Acknowledge.",
+            ],
+          },
+        ],
+      },
+    ];
+
+    let round = 0;
+    let score = 0;
+    let answered = false;
+
+    const elCustomer = document.getElementById("customer-text");
+    const elOptions = document.getElementById("options");
+    const elFeedback = document.getElementById("feedback");
+    const elBtnNext = document.getElementById("btn-next");
+    const elRound = document.getElementById("round-label");
+    const elProgress = document.getElementById("progress-fill");
+    const elQuiz = document.getElementById("screen-quiz");
+    const elDone = document.getElementById("screen-done");
+    const elFinalScore = document.getElementById("final-score");
+    const elFinalMsg = document.getElementById("final-msg");
+    const elBtnReplay = document.getElementById("btn-replay");
+
+    function shuffleOptions(opts) {
+      const arr = opts.map((o, i) => ({ o, i }));
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function renderRound() {
+      answered = false;
+      elFeedback.classList.add("hidden");
+      elBtnNext.classList.add("hidden");
+      const s = scenarios[round];
+      elCustomer.textContent = s.customer;
+      elRound.textContent = `Round ${round + 1} / ${scenarios.length}`;
+      elProgress.style.width = `${((round + 1) / scenarios.length) * 100}%`;
+
+      elOptions.innerHTML = "";
+      const shuffled = shuffleOptions(s.options);
+      shuffled.forEach(({ o }, idx) => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "option";
+        btn.dataset.correct = String(o.correct);
+        btn.dataset.index = String(idx);
+        btn.textContent = o.text;
+        btn.addEventListener("click", () => onPick(btn, o, s.options));
+        elOptions.appendChild(btn);
+      });
+    }
+
+    function onPick(btn, option, allOptions) {
+      if (answered) return;
+      answered = true;
+      if (option.correct) score++;
+
+      const buttons = elOptions.querySelectorAll(".option");
+      buttons.forEach((b) => {
+        b.disabled = true;
+        const isCorrect = b.dataset.correct === "true";
+        if (isCorrect) b.classList.add("correct");
+        else if (b === btn && !option.correct) b.classList.add("wrong");
+      });
+
+      const correctOne = allOptions.find((x) => x.correct);
+      const lines = option.correct
+        ? ["Nice — that’s a strong U block before you investigate."]
+        : ["Not quite — here’s what a stronger U looks like on this scenario."];
+      const listItems = (option.correct ? option.why : correctOne.why)
+        .map((t) => `<li>${escapeHtml(t)}</li>`)
+        .join("");
+
+      elFeedback.innerHTML = `
+        <h3>${option.correct ? "Correct" : "Learning moment"}</h3>
+        <p style="margin:0 0 0.5rem;">${escapeHtml(lines[0])}</p>
+        <ul>${listItems}</ul>
+      `;
+      elFeedback.classList.remove("hidden");
+      elBtnNext.classList.remove("hidden");
+    }
+
+    function escapeHtml(s) {
+      const d = document.createElement("div");
+      d.textContent = s;
+      return d.innerHTML;
+    }
+
+    elBtnNext.addEventListener("click", () => {
+      round++;
+      if (round >= scenarios.length) {
+        elQuiz.classList.add("hidden");
+        elDone.classList.remove("hidden");
+        elFinalScore.textContent = `${score}/${scenarios.length}`;
+        if (score === scenarios.length) {
+          elFinalMsg.textContent =
+            "Strong eye for empathy + structure — keep applying this before every fix.";
+        } else if (score >= 3) {
+          elFinalMsg.textContent =
+            "Solid — review the “learning moments” to tighten paraphrase and clarifiers.";
+        } else {
+          elFinalMsg.textContent =
+            "Replay a few times — U is the trust layer that makes solutions land.";
+        }
+        return;
+      }
+      renderRound();
+    });
+
+    elBtnReplay.addEventListener("click", () => {
+      round = 0;
+      score = 0;
+      elDone.classList.add("hidden");
+      elQuiz.classList.remove("hidden");
+      renderRound();
+    });
+
+    renderRound();
+  </script>
+</body>
+</html>
