@@ -450,19 +450,19 @@
             ],
           },
           {
-            text: "I’ve processed a full refund in our system. You should see it in 5–10 business days.",
+            text: "Hi, I’ve gone ahead and issued a full refund for GYG-88421 on our side so you don’t have to wait — you should see it on your card within 5–10 business days depending on your bank. I’m really sorry you had to write in, but this should wrap it up quickly. If anything else comes up just let me know, otherwise we’ll consider this closed.",
             correct: false,
             why: [
-              "Skips U — no listening, empathy, or clarifiers.",
-              "Risky: refunds before supplier checks can break trust and policy.",
+              "Sounds helpful but skips U — no paraphrase of what actually happened or how it feels.",
+              "Jumps to a refund before clarifying meeting point, timing, or supplier status.",
             ],
           },
           {
-            text: "Don’t worry, experiences on GetYourGuide always run. Please wait longer.",
+            text: "Hey, thanks for reaching out — I totally get that waiting around isn’t fun. In almost all cases the guide is just running a few minutes late or is already nearby, so if you could hang tight a bit longer that usually sorts itself out. Experiences on GetYourGuide generally start fine, and the supplier knows the plan, so there’s nothing to worry about. Let me know if it’s still an issue later.",
             correct: false,
             why: [
-              "Dismissive — doesn’t acknowledge their reality.",
-              "Sounds generic; no paraphrase or clarifying questions.",
+              "False reassurance and generic platitudes instead of acknowledging their specific situation.",
+              "No real paraphrase and no clarifying questions (voucher, exact spot, how late).",
             ],
           },
         ],
@@ -472,11 +472,11 @@
           "You cancelled our boat trip yesterday with no warning. We flew here for this. I want my money back today.",
         options: [
           {
-            text: "Our refund policy says payouts take 7 days.",
+            text: "Thanks for your message. Per GetYourGuide’s standard refund processing timelines, approved refunds are paid out within 7 business days once a case is finalized, and that’s the same for every booking — we can’t expedite bank processing. If you’d like, I can send you the policy link again so you can review the terms you agreed to at checkout. Let me know if you have any other questions about the timeline.",
             correct: false,
             why: [
-              "Policy-first after high emotion — feels cold.",
-              "No paraphrase, empathy, or clarifiers.",
+              "Leads with policy and timelines — cold after a high-emotion travel story.",
+              "No paraphrase of what went wrong, no empathy for the trip, no case-specific clarifiers.",
             ],
           },
           {
@@ -489,11 +489,11 @@
             ],
           },
           {
-            text: "I’m sorry. As a one-time exception I’ll refund you immediately.",
+            text: "I’m really sorry this happened to you — that’s not the experience we want anyone to have. I’m going to make a one-time exception and push an immediate refund through right now so you don’t have to wait on the normal process. You don’t need to send anything else; I’ll take care of it on my end and you should see the money soon. Thanks for your patience with us.",
             correct: false,
             why: [
-              "Empathy then jumps to resolution without investigation.",
-              "“Exception” language can create inconsistent service.",
+              "Sounds caring but still skips structured U — no summary check or clarifying questions.",
+              "Promises a refund and “exception” handling before investigating facts or supplier context.",
             ],
           },
         ],
@@ -503,11 +503,11 @@
           "The QR from your app won’t scan at the museum entrance. We’re standing in the rain. Fix this now.",
         options: [
           {
-            text: "Try zooming in on the QR or turn your screen brightness up.",
+            text: "Hi — quick checks that fix this in most cases: zoom in on the QR in the GetYourGuide app, turn your screen brightness all the way up, disable night mode, and try switching between Wi‑Fi and mobile data in case the ticket didn’t fully load. If it’s a PDF, open it in another viewer. Also make sure you’re scanning the barcode area cleanly. Try those steps in order and tell me if it works — that usually solves scanner issues at venues.",
             correct: false,
             why: [
-              "Troubleshooting before acknowledging the situation.",
-              "Misses empathy for weather and stress.",
+              "Long troubleshooting dump with no acknowledgment of rain, stress, or urgency.",
+              "No paraphrase and no clarifying questions before firing off fixes.",
             ],
           },
           {
@@ -519,11 +519,11 @@
             ],
           },
           {
-            text: "Please contact the museum — we don’t control their scanners.",
+            text: "Thanks for writing in. Because the entrance is operated by the museum, their staff and scanning hardware are outside GetYourGuide’s direct control — we provide the ticket, but the venue decides how it’s validated at the door. The fastest path is usually to speak with the ticket office or guest services on site, since they can override or reprint locally. If they still can’t help, come back to us, but there isn’t much we can do remotely from chat in these situations.",
             correct: false,
             why: [
-              "Deflects before owning the traveler’s journey.",
-              "Weak U — can feel like abandoning the customer.",
+              "Deflects and explains away ownership before acknowledging how bad this feels in the rain.",
+              "No real U — weak empathy and no diagnostic questions about ticket format or errors.",
             ],
           },
         ],
@@ -541,19 +541,19 @@
             ],
           },
           {
-            text: "Date changes aren’t allowed. You accepted the terms at checkout.",
+            text: "Hi, thanks for the details. For date changes, the availability and rules are set by the supplier and the option you selected at checkout, and many experiences are strictly non-changeable once confirmed — that’s also reflected in the terms you agreed to when booking on GetYourGuide. Because of that, we’re not able to move dates as a standard request. If you want, I can resend the policy excerpt, but otherwise there isn’t a change path I can open from here.",
             correct: false,
             why: [
-              "Policy wall — erodes trust before you’ve understood.",
-              "No clarifiers; suppliers sometimes allow exceptions.",
+              "Policy wall before confirming what the traveler actually needs today.",
+              "No paraphrase (“same activity, different day”) and no booking ref / supplier check.",
             ],
           },
           {
-            text: "Done — I moved your booking to today.",
+            text: "No worries — I’ve updated your booking to today’s date in our system so you should be all set for the same experience. Please refresh your voucher in the app and head over whenever you’re ready; if the supplier’s system takes a moment to sync, just show this chat at the meeting point. Let me know if anything looks off, but it should be sorted on my side now.",
             correct: false,
             why: [
-              "Assumes change without availability or supplier rules.",
-              "Skips structured acknowledge + clarify.",
+              "Overconfident fix without verifying availability, supplier rules, or the right SKU.",
+              "Skips U — sounds efficient but doesn’t paraphrase or ask clarifying questions first.",
             ],
           },
         ],
@@ -563,11 +563,11 @@
           "The guide was rude and rushed us. I want compensation. This ruined our anniversary.",
         options: [
           {
-            text: "I’m starting a goodwill payment now.",
+            text: "I’m really sorry you felt that way — I’ve gone ahead and initiated a goodwill compensation payment so we can make this right quickly without dragging you through more back-and-forth. You should see an update shortly, and I’ll add an internal note so this doesn’t happen again. If the amount doesn’t show up, ping me here and I’ll chase it, but I’ve started the process already so you can focus on enjoying the rest of your trip.",
             correct: false,
             why: [
-              "Promises outcome before facts and review.",
-              "Thin on listening and specifics.",
+              "Sounds generous but promises money before understanding what actually happened.",
+              "No booking reference, no specifics, no supplier documentation — thin on real U.",
             ],
           },
           {
@@ -579,11 +579,11 @@
             ],
           },
           {
-            text: "Guides are independent suppliers; we don’t handle attitude issues.",
+            text: "Thanks for sharing your feedback. On GetYourGuide, experiences are delivered by independent suppliers and local partners, so tone-of-service and pacing during the activity itself sit with them rather than something we can directly adjust in real time. We can log general feedback for partner quality, but compensation or service recovery usually isn’t available for subjective “attitude” reports. If you have a different issue (like a no-show), send the booking ref and we can review.",
             correct: false,
             why: [
-              "Sounds like blame-shifting in a sensitive moment.",
-              "Doesn’t show Understand & Acknowledge.",
+              "Process lecture and boundaries before empathy — feels like blame-shifting.",
+              "Doesn’t acknowledge the anniversary context or capture specifics for a fair review.",
             ],
           },
         ],
