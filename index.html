@@ -600,6 +600,22 @@
       return arr;
     }
 
+    const OPTION_PREFIX = "Hi there, thanks for reaching out to GetYourGuide — ";
+
+    function prefixedOptionText(raw) {
+      const s = String(raw ?? "").trim();
+      const normalized = s.toLowerCase();
+      if (
+        normalized.startsWith("hi there, thanks for reaching out to getyourguide") ||
+        normalized.startsWith("hi there, thanks for reaching out to get your guide")
+      ) {
+        return s;
+      }
+
+      const withoutLeadingGreeting = s.replace(/^(hi|hey)\b\s*(—|-|,|:)?\s*/i, "");
+      return OPTION_PREFIX + withoutLeadingGreeting;
+    }
+
     function renderRound() {
       answered = false;
       elFeedback.classList.add("hidden");
@@ -617,7 +633,7 @@
         btn.className = "option";
         btn.dataset.correct = String(o.correct);
         btn.dataset.index = String(idx);
-        btn.textContent = o.text;
+        btn.textContent = prefixedOptionText(o.text);
         btn.addEventListener("click", () => onPick(btn, o, s.options));
         elOptions.appendChild(btn);
       });
